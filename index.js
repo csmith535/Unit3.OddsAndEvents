@@ -13,27 +13,24 @@ function OddEventsForm() {
   return $form;
 }
 
+function Banks() {
+  const $banks = document.createElement("h3");
+  $banks.innerText = "Bank, Odds, Evens";
+
+  return $banks;
+}
+
 function render() {
   const $app = document.querySelector("#app");
   $app.innerHTML = `
     <h1>Odds and Events</h1>
-    <SheepCount></SheepCount>
     <OddEventsForm></OddEventsForm>
     <main>
-      <Pasture id="start"></Pasture>
-      <figure class="fence">
-        <img alt="fence" src="images/fence.png" />
-      </figure>
-      <Pasture id="target"></Pasture>
+      <Banks></Banks>
     </main>
   `;
   $app.querySelector("OddEventsForm").replaceWith(OddEventsForm());
-  $app.querySelector("SheepCount").replaceWith(SheepCount());
-
-  // Note: This is an example of how we can reuse the same component
-  // to render two different (but similar) elements.
-  $app.querySelector("Pasture#start").replaceWith(Pasture(start, true));
-  $app.querySelector("Pasture#target").replaceWith(Pasture(target, false));
+  $app.querySelector("Banks").replaceWith(Banks());
 }
 
 render();
