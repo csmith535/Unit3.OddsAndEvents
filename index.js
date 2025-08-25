@@ -43,14 +43,37 @@ function OddEventsForm() {
 
   $form.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    const formData = new FormData($form);
+    const number = formData.get("count");
+
+    if (event.submitter.id === "add") {
+      addNumber(number);
+    } else if (event.submitter.id === "sortOne") {
+      sortOne();
+    } else if (event.submitter.id === "sortAll") {
+      sortAll();
+    }
   });
 
   return $form;
 }
 
-function Banks() {
-  const $banks = document.createElement("h3");
-  $banks.innerText = "Bank";
+function numberInBank(x) {
+  let $span = document.createElement("span");
+  $span.textContent = x;
+  return $span;
+}
+
+function Banks(label, numbers) {
+  const $banks = document.createElement("section");
+  $banks.innerHTML = `
+  <h3>${label}</h3>
+  <data><data>
+  `;
+
+  const $numbers = numbers.map(numberInBank);
+  $banks.querySelector("data").replaceChildren(...$numbers);
 
   return $banks;
 }
@@ -61,11 +84,15 @@ function render() {
     <h1>Odds and Events</h1>
     <OddEventsForm></OddEventsForm>
     <main>
-      <Banks></Banks>
+      <Banks id="bank"></Banks>
+      <Banks id="odds"></Banks>
+      <Banks id="evens"></Banks>
     </main>
   `;
   $app.querySelector("OddEventsForm").replaceWith(OddEventsForm());
-  $app.querySelector("Banks").replaceWith(Banks());
+  $app.querySelector("Banks#bank").replaceWith(Banks("Bank", bank));
+  $app.querySelector("Banks#odds").replaceWith(Banks("Odds", odds));
+  $app.querySelector("Banks#evens").replaceWith(Banks("Evens", evens));
 }
 
 render();
